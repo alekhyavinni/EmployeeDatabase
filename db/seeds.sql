@@ -1,0 +1,29 @@
+INSERT INTO employee(id,first_name,last_name,role_id,manager_id)
+VALUES
+('12341','ALEKHYA','CHANDU','43211','67891'),
+('12342','GUNA','CHANDU','43212','67892'),
+('12343','AMULYA','ERIKIPATI','43213','67893'),
+('12344','MADHUMITHA','SEKHAR','43214','67894'),
+('12345','RAJESH','KUMAR','43215','67895'),
+('12346','PRADYOTH','TOBY','43216','67896'),
+('12347','RISHIKESH','SALIMETTI','43217','67897');
+
+INSERT INTO role(id,title,salary,department_id)
+VALUES
+('43211','DIRECTOR','100000.50','01234'),
+('43212','ASSISTANT DIRECTOR','80000.50','11234'),
+('43213','SENIOR MANAGER','50000.50','21234'),
+('43214','MANAGER','40000.50','31234'),
+('43215','ASSOCIATE','30000.50','41234'),
+('43216','ACCOUNTANT','60000.50','51234'),
+('43217','HR','75000.50','61234'),
+
+INSERT INTO department(id,name)
+VALUES
+('01234','R&D'),
+('11234','R&D'),
+('21234','Marketing'),
+('31234','Finance'),
+('41234','Sales'),
+('51234','Accounts'),
+('61234','Human Resources')
