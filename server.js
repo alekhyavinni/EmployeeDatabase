@@ -218,10 +218,72 @@ function startCompany(){
                   break;
 
             case  'Add a department':
-
+                  inquirer.prompt([
+                    {
+                        type:'input',
+                        name:'id',
+                        message:'enter the Department ID'
+                    },
+                    {
+                        type:'input',
+                        name:'name',
+                        message:'enter the Department name'
+                    }
+                  ]).then(answers=>{
+                    const department={
+                        id:parseInt(answers.id),
+                        name:answers.name
+                    };
+                    db.query('INSERT INTO department SET ?',department,(err,result)=>{
+                            if (err) {
+                                console.error('Error adding department:', err);
+                            } else {
+                                console.log('Department added successfully!');
+                            }  
+                        startCompany()
+                    })
+                  })
+                  break
 
             case  'Add a role':
-
+                inquirer.prompt([
+                    {
+                        type:'input',
+                        name:'id',
+                        message:'enter the employee ID'
+                    },
+                    {
+                        type:'input',
+                        name:'title',
+                        message:'enter the employee title'
+                    },
+                    {
+                        type:'input',
+                        name:'salary',
+                        message:'enter the employee salary'
+                    },
+                    {
+                        type:'input',
+                        name:'department_id',
+                        message:'enter the Department ID'
+                    }
+                  ]).then(answers=>{
+                    const role={
+                        id:parseInt(answers.id),
+                        title:answers.title,
+                        salary:answers.salary,
+                        manager_id:answers.manager_id
+                    };
+                    db.query('INSERT INTO role SET ?',role,(err,result)=>{
+                            if (err) {
+                                console.error('Error adding role:', err);
+                            } else {
+                                console.log('role added successfully!');
+                            }  
+                        startCompany()
+                    })
+                  })
+                  break
 
             case 'Add an employee':
 
@@ -234,7 +296,7 @@ function startCompany(){
                 db.end();
                 return;
         }
-        startCompany();
+        // startCompany();
     })
 }
 
