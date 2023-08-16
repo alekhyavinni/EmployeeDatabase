@@ -145,17 +145,22 @@ app.put('/api/employee-role/:id',(req,res)=>{
     })
 })
 
+
 app.use((req, res) => {
     res.status(404).end();
   });
   
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+
 
 function startCompany(){
     inquirer.prompt([
         {
             type:'list',
             name:'action',
-            message:'Select an option!!!!!',
+            message:'-----------------------!!!!!Select an option!!!!!-------------------------',
             choices:[
                 'View all departments',
                 'View all roles',
@@ -176,18 +181,41 @@ function startCompany(){
                         return;
                     }
                     console.log('All Departments:');
-                    results.forEach(department=>{
-                        console.log('ID:${department.id}'|'NAME:${department.name}')
+                    results.forEach(department => {
+                        console.log(`ID: ${department.id} | Name: ${department.name}`);
                     })
                     startCompany();
                   })     
                   break;
             
             case 'View all roles':
-
+                db.query('SELECT * FROM role',(err,results)=>{
+                    if(err){
+                        console.error('Error fetching role:',err);
+                        return;
+                    }
+                    console.log('All roles:');
+                    results.forEach(role =>{
+                        console.log(`ID : ${role.id} | Title:${role.title}| Salary:${role.salary} |DepartmentId :${role.department_id}`)
+                    })
+                    startCompany();
+                  })     
+                  break;
+            
 
             case  'View all employees':
-
+                db.query('SELECT * FROM employee',(err,results)=>{
+                    if(err){
+                        console.error('Error fetching employees:',err);
+                        return;
+                    }
+                    console.log('All employees:');
+                    results.forEach(employee =>{
+                        console.log(`ID : ${employee.id} | FirstName:${employee.first_name}| LastName:${employee.last_name} |RoleId :${employee.role_id} | ManagerId :${employee.manager_id}`)
+                    })
+                    startCompany();
+                  })     
+                  break;
 
             case  'Add a department':
 
@@ -212,8 +240,6 @@ function startCompany(){
 
 startCompany();
 
-  app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-  });
+ 
 
   
