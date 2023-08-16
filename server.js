@@ -1,5 +1,6 @@
 const express =require('express');
 const mysql=require('mysql2'); 
+const inquirer = require('inquirer');
 
 const PORT=process.env.PORT || 3001;
 const app=express();
@@ -33,7 +34,6 @@ app.get('/api/department',(req,res)=>{
             data: results
 
         });
-        console.log(results)
     });
 });
 
@@ -144,11 +144,76 @@ app.put('/api/employee-role/:id',(req,res)=>{
         }
     })
 })
+
 app.use((req, res) => {
     res.status(404).end();
   });
   
+
+function startCompany(){
+    inquirer.prompt([
+        {
+            type:'list',
+            name:'action',
+            message:'Select an option!!!!!',
+            choices:[
+                'View all departments',
+                'View all roles',
+                'View all employees',
+                'Add a department',
+                'Add a role',
+                'Add an employee',
+                'Update an employee role',
+                'Exit'
+            ]
+        }
+    ]).then(answer =>{
+        switch(answer.action){
+            case 'View all departments':
+                  db.query('SELECT * FROM department',(err,results)=>{
+                    if(err){
+                        console.error('Error fetching departments:',err);
+                        return;
+                    }
+                    console.log('All Departments:');
+                    results.forEach(department=>{
+                        console.log('ID:${department.id}'|'NAME:${department.name}')
+                    })
+                    startCompany();
+                  })     
+                  break;
+            
+            case 'View all roles':
+
+
+            case  'View all employees':
+
+
+            case  'Add a department':
+
+
+            case  'Add a role':
+
+
+            case 'Add an employee':
+
+
+            case 'Update an employee role':
+
+
+            case 'Exit':
+                console.log('Exciting from Database!');
+                db.end();
+                return;
+        }
+        startCompany();
+    })
+}
+
+startCompany();
+
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
   });
+
   
