@@ -90,7 +90,7 @@ app.post('/api/add-department',({body},res)=>{
 
 //add a role
 app.post('/api/add-role',({body},res)=>{
-    const sql=`INSERT INTO department (id,title,salary,department_id)
+    const sql=`INSERT INTO role (id,title,salary,department_id)
     VALUES (?,?,?,?)`;
    const params=[body.id,body.title,body.salary,body.department];
    db.query(sql,params,(err,results)=>{
@@ -107,7 +107,7 @@ app.post('/api/add-role',({body},res)=>{
 
 //add an employee
 app.post('/api/add-employee',({body},res)=>{
-    const sql=`INSERT INTO department (id,first_name,last_name,role_id,manager_id)
+    const sql=`INSERT INTO employee (id,first_name,last_name,role_id,manager_id)
     VALUES (?,?,?,?,?)`;
    const params=[body.id,body.first_name,body.last_name,body.role_id,body.manager_id];
    db.query(sql,params,(err,results)=>{
@@ -118,12 +118,32 @@ app.post('/api/add-employee',({body},res)=>{
         message: 'success',
         data:body
     });
-    console.log(results)
+   
    });
 });
 
 //update an employee
-app.put('/api/employee-role/:')
+app.put('/api/employee-role/:id',(req,res)=>{
+    const sql='UPDATE role SET title=? WHERE id =?'
+    const params=[req.body.title,req.params.id];
+
+    db.query(sql,params,(err,result)=>{
+        if(err){
+            res.status(400).json({error:err.message});
+        }else if(!result.affectedRows){
+            res.json({
+                message:'employee not found'
+            });
+        }
+        else{
+            res.json({
+                message:'success',
+                data:req.body,
+                changes:result.affectedRows
+            })
+        }
+    })
+})
 app.use((req, res) => {
     res.status(404).end();
   });
