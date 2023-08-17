@@ -271,7 +271,7 @@ function startCompany(){
                     const role={
                         id:parseInt(answers.id),
                         title:answers.title,
-                        salary:answers.salary,
+                        salary:parseFloat(answers.salary),
                         manager_id:answers.manager_id
                     };
                     db.query('INSERT INTO role SET ?',role,(err,result)=>{
@@ -286,10 +286,80 @@ function startCompany(){
                   break
 
             case 'Add an employee':
+                inquirer.prompt([
+                    {
+                        type:'input',
+                        name:'id',
+                        message:'enter the employee ID'
+                    },
+                    {
+                        type:'input',
+                        name:'first_name',
+                        message:'enter the employee first_name'
+                    },
+                    {
+                        type:'input',
+                        name:'last_name',
+                        message:'enter the employee last_name'
+                    },
+                    {
+                        type:'input',
+                        name:'role_id',
+                        message:'enter the role ID'
+                    },
+                    {
+                        type:'input',
+                        name:'manager_id',
+                        message:'enter the manager ID'
+                    }
+                  ]).then(answers=>{
+                    const employee={
+                        id:parseInt(answers.id),
+                        first_name:answers.first_name,
+                        last_name:answers.last_name,
+                        role_id:parseInt(answers.role_id),
+                        manager_id:parseInt(answers.manager_id)
 
+                    };
+                    db.query('INSERT INTO employee SET ?',employee,(err,result)=>{
+                            if (err) {
+                                console.error('Error adding employee:', err);
+                            } else {
+                                console.log('employee added successfully!');
+                            }  
+                        startCompany()
+                    })
+                  })
+                  break
 
             case 'Update an employee role':
-
+                  inquirer.prompt([
+                    {
+                        type:'input',
+                        name:'id',
+                        message:'enter the employee ID to update the employee role'
+                    },
+                    {
+                        type:'input',
+                        name:'title',
+                        message:'enter the new employee role'
+                    }
+                  ]).then(answers=>{
+                    const employeeRole ={
+                        id:parseInt(answers.id),
+                        title:answers.title
+                    }
+                    db.query('UPDATE role SET title=? WHERE id=?',[employeeRole.id,employeeRole.title],(err,result)=>{
+                        if (err) {
+                            console.error('Error adding employee:', err);
+                        }
+                        else{
+                            console.log('employee added successfully!');
+                        }  
+                    startCompany()  
+                    })
+                  })
+                  break
 
             case 'Exit':
                 console.log('Exciting from Database!');
