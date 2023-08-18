@@ -160,7 +160,7 @@ function startCompany(){
         {
             type:'list',
             name:'action',
-            message:'-----------------------!!!!!Select an option!!!!!-------------------------',
+            message:'-------***********!!!!!Select an option!!!!!***********------------',
             choices:[
                 'View all departments',
                 'View all roles',
@@ -169,11 +169,14 @@ function startCompany(){
                 'Add a role',
                 'Add an employee',
                 'Update an employee role',
-                'Exit'
+                new inquirer.Separator(),
+                'Exit',
+                new inquirer.Separator(),
             ]
         }
     ]).then(answer =>{
         switch(answer.action){
+
             case 'View all departments':
                   db.query('SELECT * FROM department',(err,results)=>{
                     if(err){
@@ -182,7 +185,9 @@ function startCompany(){
                     }
                     console.log('All Departments:');
                     results.forEach(department => {
-                        console.log(`ID: ${department.id} | Name: ${department.name}`);
+                        console.log('-------------------------------')
+                        console.log(`| ID: ${department.id} | Name: ${department.name} |`);
+                        console.log('-------------------------------')
                     })
                     startCompany();
                   })     
@@ -196,7 +201,9 @@ function startCompany(){
                     }
                     console.log('All roles:');
                     results.forEach(role =>{
-                        console.log(`ID : ${role.id} | Title:${role.title}| Salary:${role.salary} |DepartmentId :${role.department_id}`)
+                        console.log('-------------------------------------------------------------------------------')
+                        console.log(`|ID : ${role.id} | Title:${role.title} | Salary:${role.salary} | DepartmentId :${role.department_id}|`)
+                        console.log('-------------------------------------------------------------------------------')
                     })
                     startCompany();
                   })     
@@ -211,7 +218,9 @@ function startCompany(){
                     }
                     console.log('All employees:');
                     results.forEach(employee =>{
-                        console.log(`ID : ${employee.id} | FirstName:${employee.first_name}| LastName:${employee.last_name} |RoleId :${employee.role_id} | ManagerId :${employee.manager_id}`)
+                        console.log('|------------------------------------------------------------------------------------------------|')
+                        console.log(`|ID : ${employee.id} | FirstName:${employee.first_name}| LastName:${employee.last_name} |RoleId :${employee.role_id} | ManagerId :${employee.manager_id} |`)
+                        console.log('|------------------------------------------------------------------------------------------------|')
                     })
                     startCompany();
                   })     
@@ -272,7 +281,7 @@ function startCompany(){
                         id:parseInt(answers.id),
                         title:answers.title,
                         salary:parseFloat(answers.salary),
-                        manager_id:answers.manager_id
+                        department_id:parseInt(answers.department_id)
                     };
                     db.query('INSERT INTO role SET ?',role,(err,result)=>{
                             if (err) {
@@ -343,13 +352,15 @@ function startCompany(){
                         type:'input',
                         name:'title',
                         message:'enter the new employee role'
-                    }
+                    }, 
+                    
                   ]).then(answers=>{
                     const employeeRole ={
                         id:parseInt(answers.id),
-                        title:answers.title
+                        title:answers.title,
+                        
                     }
-                    db.query('UPDATE role SET title=? WHERE id=?',[employeeRole.id,employeeRole.title],(err,result)=>{
+                    db.query('UPDATE role SET title=? WHERE id=?',[employeeRole.title,employeeRole.id],(err,result)=>{
                         if (err) {
                             console.error('Error adding employee:', err);
                         }
