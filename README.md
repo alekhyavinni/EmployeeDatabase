@@ -27,6 +27,21 @@ npm i express,nodemon,dotenv,path,mysql2
 npm run start / node server.js
 
 ```
+# Usage :
+Download the code to your local. Perform npm i to install all the packages. Answer the questions asked in the command prompt like
+[
+View All Departments
+View All Roles
+View All Employees
+Add a Department
+Add a Role
+Add an Employee
+Update an Employee Role
+Total utilized budget of a department
+Quit
+]
+
+```
 
 ```
 

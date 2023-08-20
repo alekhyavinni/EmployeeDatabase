@@ -6,7 +6,7 @@ USE companyEmployee_db;
 
 CREATE TABLE department(
     id INT PRIMARY KEY ,
-    name VARCHAR(30) NOT NULL
+    department VARCHAR(30) NOT NULL
 );
 
 CREATE TABLE role(

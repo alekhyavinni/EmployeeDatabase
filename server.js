@@ -73,9 +73,9 @@ app.get('/api/employee',(req,res)=>{
 
 //add a department
 app.post('/api/add-department',({body},res)=>{
-    const sql=`INSERT INTO department (id,name)
+    const sql=`INSERT INTO department (id,department)
     VALUES (?,?)`;
-   const params=[body.id,body.name];
+   const params=[body.id,body.department];
    db.query(sql,params,(err,results)=>{
     if(err){
         res.status(400).json({error:err.message});
@@ -145,6 +145,22 @@ app.put('/api/employee-role/:id',(req,res)=>{
     })
 })
 
+//Application allows users to view the total utilized budget of a department—in other words, the combined salaries of all employees in that department
+app.get('/api/dept_salary',(req,res)=>{
+    const sql="SELECT department.department,SUM(role.Salary) AS Tot_DeptSalary  FROM department JOIN role ON department.id = role.department_id GROUP BY department"
+    db.query(sql,(err,results)=>{
+       if(err){
+        res.status(500).json({err:message});
+        return;
+       } 
+       res.json({
+        message:'success',
+        data:results
+       })
+    })
+})
+
+
 
 app.use((req, res) => {
     res.status(404).end();
@@ -186,7 +202,7 @@ function startCompany(){
                     console.log('All Departments:');
                     results.forEach(department => {
                         console.log('-------------------------------')
-                        console.log(`| ID: ${department.id} | Name: ${department.name} |`);
+                        console.log(`| ID: ${department.id} | Department: ${department.department} |`);
                         console.log('-------------------------------')
                     })
                     startCompany();
@@ -235,13 +251,13 @@ function startCompany(){
                     },
                     {
                         type:'input',
-                        name:'name',
+                        name:'department',
                         message:'enter the Department name'
                     }
                   ]).then(answers=>{
                     const department={
                         id:parseInt(answers.id),
-                        name:answers.name
+                        department:answers.department
                     };
                     db.query('INSERT INTO department SET ?',department,(err,result)=>{
                             if (err) {
