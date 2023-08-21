@@ -185,6 +185,7 @@ function startCompany(){
                 'Add a role',
                 'Add an employee',
                 'Update an employee role',
+                'Total utilized budget of each department',
                 new inquirer.Separator(),
                 'Exit',
                 new inquirer.Separator(),
@@ -387,7 +388,21 @@ function startCompany(){
                     })
                   })
                   break
-
+            case 'Total utilized budget of each department':
+                db.query('SELECT department.department,SUM(role.Salary) AS Tot_DeptSalary FROM department JOIN role ON department.id = role.department_id GROUP BY department',(err,results)=>{
+                if(err){
+                    console.error('Error Fecthing the Data',err)
+                    return;
+                }
+                console.log("Department Wise Salaries ")
+                results.forEach(department=>{
+                    console.log('-------------------------------------------------------------------------------')
+                    console.log(`|Department : ${department.department} | Total Amount:${department.Tot_DeptSalary} |`)
+                    console.log('-------------------------------------------------------------------------------')
+                })
+                startCompany();
+            })
+        break
             case 'Exit':
                 console.log('Exciting from Database!');
                 db.end();
