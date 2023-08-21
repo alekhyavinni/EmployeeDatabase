@@ -52,7 +52,7 @@ Download the code to your local. Perform npm i to install all the packages. Answ
 ```
 # Video
 
-[![Watch the Video](./assets/sql.png)](https://youtu.be/k4QDB8aEuSQ)
+[![Watch the Video](./assets/sql.png)](https://www.youtube.com/watch?v=k4QDB8aEuSQ)
 ```
 
 # license
