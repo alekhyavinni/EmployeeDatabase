@@ -29,6 +29,8 @@ npm i express,nodemon,dotenv,path,mysql2
 npm run start / node server.js
 
 ```
+
+```
 # Usage :
 Download the code to your local. Perform npm i to install all the packages. Answer the questions asked in the command prompt like
 [
@@ -46,8 +48,15 @@ Download the code to your local. Perform npm i to install all the packages. Answ
 
 ```
 
+
 ```
 # Video
 
-[Watch the Video](https://youtu.be/k4QDB8aEuSQ)
+[![Watch the Video](./assets/sql.png)](https://youtu.be/k4QDB8aEuSQ)
 ```
+
+# license
+Please refer to the License in repo
+
+# Contributor:
+Alekhya Erikipati ©2023 All Rights Reserved.
