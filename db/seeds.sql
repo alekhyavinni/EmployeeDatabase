@@ -1,6 +1,6 @@
 
 
-INSERT INTO department(id,name)
+INSERT INTO department(id,department)
 VALUES
 ('01234','R&D'),
 ('11234','R&D'),
