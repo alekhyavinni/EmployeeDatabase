@@ -193,13 +193,13 @@ function startCompany(){
             name:'action',
             message:'-------***********!!!!!Select an option!!!!!***********------------',
             choices:[
-                'View all departments',
-                'View all roles',
                 'View all employees',
-                'Add a department',
-                'Add a role',
                 'Add an employee',
                 'Update an employee role',
+                'View all roles',
+                'Add a role',
+                'View all departments',
+                'Add a department',
                 'Total utilized budget of each department',
                 'Delete Employee By Id',
                 new inquirer.Separator(),
@@ -379,7 +379,7 @@ function startCompany(){
                     {
                         type:'input',
                         name:'id',
-                        message:'enter the employee ID to update the employee role'
+                        message:'enter the employee role-ID to update the employee role'
                     },
                     {
                         type:'input',
