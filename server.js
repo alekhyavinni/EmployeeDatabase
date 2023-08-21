@@ -160,6 +160,21 @@ app.get('/api/dept_salary',(req,res)=>{
     })
 })
 
+app.delete('/api/delete_emp',({body},res)=>{
+    const sql="DELETE FROM department WHERE id IN(SELECT role.department_id  FROM ROLE WHERE id =(SELECT role_id FROM employee WHERE id=?))"
+    const params=[body.id];
+    db.query(sql,params,(err,results)=>{
+     if(err){
+         res.status(400).json({error:err.message});
+     }
+     res.json({
+         message: 'success',
+         data:body
+     });
+     console.log(results)
+    });
+ });
+
 
 
 app.use((req, res) => {
@@ -186,6 +201,7 @@ function startCompany(){
                 'Add an employee',
                 'Update an employee role',
                 'Total utilized budget of each department',
+                'Delete Employee By Id',
                 new inquirer.Separator(),
                 'Exit',
                 new inquirer.Separator(),
@@ -388,6 +404,8 @@ function startCompany(){
                     })
                   })
                   break
+
+
             case 'Total utilized budget of each department':
                 db.query('SELECT department.department,SUM(role.Salary) AS Tot_DeptSalary FROM department JOIN role ON department.id = role.department_id GROUP BY department',(err,results)=>{
                 if(err){
@@ -402,7 +420,34 @@ function startCompany(){
                 })
                 startCompany();
             })
-        break
+            break
+
+            case 'Delete Employee By Id':
+                inquirer.prompt([
+                    {
+                        type:'input',
+                        name:'id',
+                        message:'Enter the Employee Id you want to delete-'
+                    }
+                ]).then(answers=>{
+                    const employee={
+                        id:parseInt(answers.id)
+                    }
+                
+                db.query('DELETE FROM department WHERE id IN(SELECT role.department_id  FROM ROLE WHERE id =(SELECT role_id FROM employee WHERE id=?))',employee.id,(err,results)=>{
+                if(err){
+                    console.error('Error Fecthing the Data',err)
+                    return;
+                }
+                else {
+                    console.log('All th employee details are deleted successfully!');
+                }  
+            startCompany()
+        })
+      })
+      break
+
+
             case 'Exit':
                 console.log('Exciting from Database!');
                 db.end();
