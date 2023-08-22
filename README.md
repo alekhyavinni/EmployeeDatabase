@@ -52,7 +52,7 @@ Download the code to your local. Perform npm i to install all the packages. Answ
 ```
 # Video
 
-[![Watch the Video] ](https://www.youtube.com/watch?v=k4QDB8aEuSQ)
+[![Watch the Video] ](https://youtu.be/k4QDB8aEuSQ?si=1FypA3H2AJgXw1_Q)
 
 
 
