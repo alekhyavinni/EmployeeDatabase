@@ -52,8 +52,9 @@ Download the code to your local. Perform npm i to install all the packages. Answ
 ```
 # Video
 
-[![Watch the Video](https://photos.app.goo.gl/Lwn7etEfou4DwZVx9)](https://www.youtube.com/watch?v=k4QDB8aEuSQ)
-```
+[![Watch the Video] ](https://www.youtube.com/watch?v=k4QDB8aEuSQ)
+
+
 
 # license
 Please refer to the License in repo
